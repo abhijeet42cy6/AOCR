@@ -115,7 +115,7 @@ const descriptionSlideVariants = {
 const Capabilities = () => {
   const capabilitiesData = [
     {
-      title: "LLLM Ingestion ready output",
+      title: "LLM Ingestion ready output",
       description: "Get data that has already been parsed to input directly into LLMs an build application"
     },
     {

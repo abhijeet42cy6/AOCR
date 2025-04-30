@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 const HeroSection = styled.section`
-  padding: 4rem 0;
+  padding: 4rem 1rem;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -11,6 +11,12 @@ const HeroSection = styled.section`
   justify-content: center;
   min-height: 60vh;
   overflow: hidden;
+  width: 100%;
+  
+  @media (max-width: 768px) {
+    padding: 2rem 0.5rem;
+    min-height: auto;
+  }
 `;
 
 const Title = styled(motion.h1)`
@@ -67,7 +73,7 @@ const MadeInIndiaButton = styled(motion.button)`
 `;
 
 const DemoPlaceholder = styled(motion.div)`
-  width: 95%;
+  width: 100%;
   max-width: 1100px;
   height: auto;
   background-color: transparent;
@@ -98,6 +104,19 @@ const DemoPlaceholder = styled(motion.div)`
     transform: translateY(-5px) scale(1.02);
     transition: transform 0.1s ease;
   }
+  
+  @media (max-width: 768px) {
+    border-radius: 6px;
+    
+    &:hover {
+      transform: none;
+      box-shadow: none;
+      
+      img {
+        filter: none;
+      }
+    }
+  }
 `;
 
 const DemoImage = styled.img`
@@ -106,6 +125,11 @@ const DemoImage = styled.img`
   display: block;
   transition: filter 0.4s ease;
   border-radius: 10px;
+  object-fit: contain;
+  
+  @media (max-width: 768px) {
+    border-radius: 6px;
+  }
 `;
 
 const StrongText = styled.strong`
@@ -166,48 +190,49 @@ const riseVariants = {
 };
 
 const Hero = () => {
-  const [imgDimensions, setImgDimensions] = useState({ width: 0, height: 0 });
-  
-  useEffect(() => {
-    // Preload the image to get its dimensions
-    const img = new Image();
-    img.onload = () => {
-      setImgDimensions({
-        width: img.width,
-        height: img.height
-      });
-    };
-    img.src = '/Group 1.jpg';
-  }, []);
-  
   return (
     <HeroSection>
       <motion.div
         variants={containerVariants}
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.1 }}
+        style={{ width: '100%' }}
       >
-        <Title variants={itemVariants}>
+        <Title 
+          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.1 }}
+        >
           a_OCR that <HighlightedText>understands and explains</HighlightedText>
         </Title>
-        <Subtitle variants={itemVariants}>
-          R2-D2 OCR is capable of reading, <StrongText>understanding</StrongText>, extracting data from complex documents and makes them LLM ready
+        <Subtitle 
+          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.1 }}
+        >
+          a_OCR is capable of reading, <StrongText>understanding</StrongText>, extracting data from complex documents and makes them LLM ready
         </Subtitle>
-        <MadeInIndiaButton variants={itemVariants}>
+        <MadeInIndiaButton 
+          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.1 }}
+        >
           <FlagIcon /> <ButtonText>made in India</ButtonText>
         </MadeInIndiaButton>
         <DemoPlaceholder 
           variants={riseVariants}
-          style={{
-            width: imgDimensions.width > 0 ? Math.min(imgDimensions.width, 1100) : '95%',
-            maxWidth: '95%'
-          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.1 }}
         >
           <DemoImage 
             src="/Group 1.jpg" 
             alt="a_OCR Demo"
-            width={imgDimensions.width}
-            height={imgDimensions.height}
+            loading="lazy"
           />
         </DemoPlaceholder>
       </motion.div>
